@@ -1,0 +1,131 @@
+.nifty-stocks-box {
+  background: linear-gradient(120deg, #f5f7fa 60%, #e3f2fd 100%);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(25,118,210,0.11), 0 1.5px 4px rgba(33,150,243,0.09);
+  padding: 28px 24px 18px 24px;
+  max-width: 380px;
+  min-width: 240px;
+  margin: 32px auto;
+  font-size: 1rem;
+  transition: box-shadow 0.25s, background 0.25s;
+  animation: fadein 0.8s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: translateY(18px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+.nifty-title {
+  font-size: 1.23rem;
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 16px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 8px rgba(33, 150, 243, 0.08);
+}
+
+.nifty-loading {
+  color: #888;
+  text-align: center;
+  padding: 14px 0;
+}
+
+.nifty-table-wrapper {
+  width: 100%;
+  transition: opacity 0.4s;
+  opacity: 1;
+}
+
+.fade-in {
+  opacity: 1;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.nifty-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 4px;
+  background: none;
+}
+
+.nifty-table th, .nifty-table td {
+  padding: 8px 10px;
+  text-align: center;
+}
+
+.nifty-table th {
+  color: #37474f;
+  font-weight: 600;
+  font-size: 1em;
+  border-bottom: 2px solid #e3f2fd;
+  background: none;
+}
+
+.nifty-table td {
+  font-size: 1em;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(25,118,210,0.06);
+}
+
+.nifty-table .pos {
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+.nifty-table .neg {
+  color: #c62828;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .nifty-stocks-box {
+    max-width: 98vw;
+    padding: 16px 4vw 10px 4vw;
+  }
+  .nifty-table th, .nifty-table td {
+    padding: 6px 4px;
+    font-size: 0.97em;
+  }
+}
+
+.nifty-stocks-box.clickable {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  width: 100%;
+  transition: box-shadow 0.25s, background 0.25s, transform 0.18s;
+  box-shadow: 0 4px 24px rgba(25,118,210,0.11), 0 1.5px 4px rgba(33,150,243,0.09);
+  background: linear-gradient(120deg, #f5f7fa 60%, #e3f2fd 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.nifty-stocks-box.clickable:hover,
+.nifty-stocks-box.clickable:focus {
+  box-shadow: 0 8px 32px rgba(25,118,210,0.16), 0 2px 8px rgba(33,150,243,0.13);
+  background: linear-gradient(120deg, #e3f2fd 60%, #bbdefb 100%);
+  transform: translateY(-2px) scale(1.025);
+}
+
+.nifty-chart-hint {
+  margin-top: 10px;
+  font-size: 0.93em;
+  color: #1976d2;
+  opacity: 0.7;
+  letter-spacing: 0.01em;
+  text-align: center;
+  user-select: none;
+}
+
+/* Keep all other styles as before */
