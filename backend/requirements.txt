@@ -1,0 +1,219 @@
+Flask
+flask-cors
+yfinance
+pandas
+numpy
+
+# from flask import Flask, render_template, request
+# import yfinance as yf
+
+# import pandas as pd
+# import matplotlib
+# matplotlib.use('Agg')  # Use non-GUI backend for server
+# import matplotlib.pyplot as plt
+# import io
+# import base64
+# from datetime import datetime
+
+# app = Flask(__name__)
+
+# # Popular stocks for dropdown
+# STOCK_OPTIONS = [
+#     ("ADANIENT.NS", "Adani Enterprises"),
+#     ("ADANIPORTS.NS", "Adani Ports & SEZ"),
+#     ("APOLLOHOSP.NS", "Apollo Hospitals"),
+#     ("ASIANPAINT.NS", "Asian Paints"),
+#     ("AXISBANK.NS", "Axis Bank"),
+#     ("BAJAJ_AUTO.NS", "Bajaj Auto"),
+#     ("BAJFINANCE.NS", "Bajaj Finance"),
+#     ("BAJAJFINSV.NS", "Bajaj Finserv"),
+#     ("BPCL.NS", "Bharat Petroleum"),
+#     ("BHARTIARTL.NS", "Bharti Airtel"),
+#     ("BRITANNIA.NS", "Britannia Industries"),
+#     ("CIPLA.NS", "Cipla"),
+#     ("COALINDIA.NS", "Coal India"),
+#     ("DIVISLAB.NS", "Divi's Laboratories"),
+#     ("DRREDDY.NS", "Dr. Reddy's Laboratories"),
+#     ("EICHERMOT.NS", "Eicher Motors"),
+#     ("GRASIM.NS", "Grasim Industries"),
+#     ("HCLTECH.NS", "HCL Technologies"),
+#     ("HDFCBANK.NS", "HDFC Bank"),
+#     ("HDFCLIFE.NS", "HDFC Life Insurance"),
+#     ("HEROMOTOCO.NS", "Hero MotoCorp"),
+#     ("HINDALCO.NS", "Hindalco Industries"),
+#     ("HINDUNILVR.NS", "Hindustan Unilever"),
+#     ("ICICIBANK.NS", "ICICI Bank"),
+#     ("ITC.NS", "ITC"),
+#     ("INDUSINDBK.NS", "IndusInd Bank"),
+#     ("INFY.NS", "Infosys"),
+#     ("JSWSTEEL.NS", "JSW Steel"),
+#     ("KOTAKBANK.NS", "Kotak Mahindra Bank"),
+#     ("LT.NS", "Larsen & Toubro"),
+#     ("M&M.NS", "Mahindra & Mahindra"),
+#     ("MARUTI.NS", "Maruti Suzuki"),
+#     ("NTPC.NS", "NTPC"),
+#     ("NESTLEIND.NS", "Nestle India"),
+#     ("ONGC.NS", "Oil & Natural Gas Corp"),
+#     ("POWERGRID.NS", "Power Grid Corporation"),
+#     ("RELIANCE.NS", "Reliance Industries"),
+#     ("SBILIFE.NS", "SBI Life Insurance"),
+#     ("SBIN.NS", "State Bank of India"),
+#     ("SUNPHARMA.NS", "Sun Pharma"),
+#     ("TCS.NS", "Tata Consultancy Services"),
+#     ("TATACONSUM.NS", "Tata Consumer Products"),
+#     ("TATAMOTORS.NS", "Tata Motors"),
+#     ("TATASTEEL.NS", "Tata Steel"),
+#     ("TECHM.NS", "Tech Mahindra"),
+#     ("TITAN.NS", "Titan Company"),
+#     ("ULTRACEMCO.NS", "UltraTech Cement"),
+#     ("UPL.NS", "UPL"),
+#     ("WIPRO.NS", "Wipro"),
+# ]
+
+# @app.route('/')
+# def all_techniques():
+#     return render_template('all_techniques.html')
+
+# @app.route('/backtest', methods=['GET', 'POST'])
+# def index():
+#     result = None
+#     plot_url = None
+#     if request.method == 'POST':
+#         stock = request.form['stock']
+#         start_date = request.form['start_date']
+#         end_date = request.form['end_date']
+#         capital = float(request.form['capital'])
+
+#         # Download and process data
+#         data = yf.download(stock, start=start_date, end=end_date)
+#         if data.empty:
+#             result = "No data found for this symbol and date range."
+#         else:
+#             data = data[['Close']]
+#             data['SMA20'] = data['Close'].rolling(window=20).mean()
+#             data['SMA50'] = data['Close'].rolling(window=50).mean()
+#             data = data.dropna().reset_index(drop=True).copy()
+#             data['Signal'] = 0
+#             data.loc[data['SMA20'] > data['SMA50'], 'Signal'] = 1
+#             data.loc[data['SMA20'] < data['SMA50'], 'Signal'] = -1
+#             data['Trade'] = data['Signal'].diff()
+
+#             in_position = False
+#             buy_price = 0
+#             returns = []
+
+#             for i in range(len(data)):
+#                 trade_signal_val = data['Trade'].iloc[i]
+#                 trade_signal = float(trade_signal_val.iloc[0]) if isinstance(trade_signal_val, pd.Series) else float(trade_signal_val)
+#                 price_val = data['Close'].iloc[i]
+#                 price = float(price_val.iloc[0]) if isinstance(price_val, pd.Series) else float(price_val)
+
+#                 if trade_signal == 2 and not in_position:
+#                     buy_price = price
+#                     in_position = True
+#                 elif trade_signal == -2 and in_position:
+#                     sell_price = price
+#                     profit = (sell_price - buy_price) / buy_price
+#                     returns.append(float(profit))
+#                     in_position = False
+
+#             num_trades = len(returns)
+#             total_return = sum(returns) * capital  # Net profit/loss in dollars
+
+#             result = {
+#                 'num_trades': num_trades,
+#                 'net_profit': total_return
+#             }
+
+#             # Plotting
+#             fig, ax = plt.subplots(figsize=(10,4))
+#             ax.plot(data['Close'], label='Close Price')
+#             ax.plot(data['SMA20'], label='SMA20')
+#             ax.plot(data['SMA50'], label='SMA50')
+#             ax.scatter(data.index[data['Trade'] == 2], data['Close'][data['Trade'] == 2], label='Buy', marker='^', color='green')
+#             ax.scatter(data.index[data['Trade'] == -2], data['Close'][data['Trade'] == -2], label='Sell', marker='v', color='red')
+#             ax.legend()
+#             ax.set_title(f"{stock} Moving Average Crossover Strategy")
+#             ax.set_xlabel("Days lapsed")
+#             ax.set_ylabel("Price (₹)")
+
+#             # Save plot to string
+#             buf = io.BytesIO()
+#             plt.tight_layout()
+#             plt.savefig(buf, format="png")
+#             buf.seek(0)
+#             plot_url = base64.b64encode(buf.getvalue()).decode("utf8")
+#             plt.close()
+
+#     return render_template(
+#         'index.html',
+#         stock_options=STOCK_OPTIONS,
+#         result=result,
+#         plot_url=plot_url
+#     )
+# @app.route('/rsi', methods=['GET', 'POST'])
+# def rsi():
+#     result = None
+#     plot_url = None
+#     if request.method == 'POST':
+#         stock = request.form['stock']
+#         start_date = request.form['start_date']
+#         end_date = request.form['end_date']
+
+#         data = yf.download(stock, start=start_date, end=end_date)
+#         if data.empty:
+#             result = "No data found for this symbol and date range."
+#         else:
+#             # --- RSI Calculation ---
+#             window = 14
+#             delta = data['Close'].diff()
+#             gain = (delta.where(delta > 0, 0)).rolling(window=window).mean()
+#             loss = (-delta.where(delta < 0, 0)).rolling(window=window).mean()
+#             rs = gain / loss
+#             data['RSI'] = 100 - (100 / (1 + rs))
+
+#             # --- RSI summary ---
+#             min_rsi = data['RSI'].min()
+#             max_rsi = data['RSI'].max()
+#             mean_rsi = data['RSI'].mean()
+#             num_oversold = (data['RSI'] < 30).sum()
+#             num_overbought = (data['RSI'] > 70).sum()
+
+#             result = {
+#                 'min_rsi': min_rsi,
+#                 'max_rsi': max_rsi,
+#                 'mean_rsi': mean_rsi,
+#                 'num_oversold': num_oversold,
+#                 'num_overbought': num_overbought
+#             }
+
+#             # --- Plotting ---
+#             import matplotlib.pyplot as plt
+#             import io, base64
+#             fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10,7), sharex=True)
+#             ax1.plot(data['Close'], label='Close Price')
+#             ax1.set_title(f"{stock} Close Price")
+#             ax1.legend()
+#             ax2.plot(data['RSI'], label='RSI', color='purple')
+#             ax2.axhline(70, color='red', linestyle='--', label='Overbought (70)')
+#             ax2.axhline(30, color='green', linestyle='--', label='Oversold (30)')
+#             ax2.set_title('RSI')
+#             ax2.legend()
+#             plt.tight_layout()
+#             buf = io.BytesIO()
+#             plt.savefig(buf, format="png")
+#             buf.seek(0)
+#             plot_url = base64.b64encode(buf.getvalue()).decode("utf8")
+#             plt.close()
+
+#     return render_template(
+#         'rsi.html',
+#         stock_options=STOCK_OPTIONS,
+#         result=result,
+#         plot_url=plot_url
+#     )
+
+    
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
