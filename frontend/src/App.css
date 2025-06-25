@@ -4,7 +4,9 @@ html, body, #root {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
-  background: #f5f7fa;
+  background:
+    linear-gradient(rgba(245,247,250,0.92), rgba(227,242,253,0.92)),
+    url('/bg.jpg') center center/cover no-repeat;
   color: #222;
   max-width: 100vw;
   overflow-x: hidden;

@@ -126,113 +126,109 @@ export default function MovingAveragePage() {
   };
 
   return (
-    <div className="page-container">
-      <h2 className="form-title">Moving Average Crossover Analysis</h2>
-      <p className="intro-text" style={{ maxWidth: 750, marginBottom: 12 }}>
-     Moving Average Crossover Analysis is a widely used technical strategy in financial markets that helps investors and traders identify
-     potential entry and exit points. It involves plotting two moving averages of a stock’s price — typically a short-term average and
-     a long-term average — and analyzing the points where they intersect. A bullish crossover, also known as a "golden cross," occurs 
-     when the short-term average moves above the long-term average, signaling a potential upward trend.Conversely, a bearish crossover
-     or "death cross" occurs when the short-term average dips below the long-term average, indicating possible downward momentum.This
-     method helps smooth out price fluctuations and reveal the underlying trend direction with greater clarity.
-    </p>
-    <p className="intro-text" style={{ maxWidth: 750, marginBottom: 24 }}>
-     By using Moving Average Crossover Analysis, investors can develop systematic trading strategies that reduce emotional 
-     decision-making. This tool is particularly effective for identifying medium-to-long-term trends and works well in trending markets.
-     When applied to major stocks such as those in the Nifty 50, the crossover approach offers meaningful insights into price dynamics
-     and historical performance. This analysis also enables users to simulate past trades based on historical crossovers, calculate
-     net returns, and visualize performance — making it a practical resource for both new and experienced market participants aiming to enhance their timing and risk management strategies.
-      </p>
-      <h2 className="form-title">Try it for yourself !</h2>
-      {!result && (
-        <form className="analysis-form" onSubmit={handleSubmit}>
-          {/* ... your form fields as before ... */}
-          {/* Copy your form fields here */}
-          <div className="form-group">
-            <label htmlFor="stock">Nifty 50 Stock</label>
-            <select
-              id="stock"
-              name="stock"
-              value={form.stock}
-              onChange={handleChange}
-              required
-            >
-              <option value="">-- Select a Stock --</option>
-              {NIFTY_50_STOCKS.map((s) => (
-                <option key={s.symbol} value={s.symbol}>
-                  {s.name} ({s.symbol})
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="start_date">Start Date</label>
-            <input
-              type="date"
-              id="start_date"
-              name="start_date"
-              value={form.start_date}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="end_date">End Date</label>
-            <input
-              type="date"
-              id="end_date"
-              name="end_date"
-              value={form.end_date}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="short_window">Short Window (days)</label>
-            <input
-              type="number"
-              id="short_window"
-              name="short_window"
-              value={form.short_window}
-              min="1"
-              max="200"
-              onChange={handleChange}
-              required
-              placeholder="Short Window"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="long_window">Long Window (days)</label>
-            <input
-              type="number"
-              id="long_window"
-              name="long_window"
-              value={form.long_window}
-              min="1"
-              max="500"
-              onChange={handleChange}
-              required
-              placeholder="Long Window"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="initial_investment">Initial Investment (₹)</label>
-            <input
-              type="number"
-              id="initial_investment"
-              name="initial_investment"
-              value={form.initial_investment}
-              min="0"
-              step="100"
-              onChange={handleChange}
-              placeholder="Optional"
-            />
-          </div>
-          <button type="submit" className="tool-button" disabled={loading}>
-            {loading ? "Analyzing..." : "Analyze Moving Average"}
-          </button>
-        </form>
-      )}
+    
+<div className="page-container">
+<div className="intro-section">
+  <div className="intro-header">
+    <h2> Moving Average Crossover Analysis</h2>
+  </div>
+  <p className="intro-text">
+    Analyze Nifty 50 stocks using Moving Average Crossover to spot trends and simulate returns.
+  </p>
+  <ul className="intro-benefits">
+    <li>📈 Spot buy/sell opportunities</li>
+    <li>📊 Visualize historical performance</li>
+    <li>⚙️ Test strategies on Nifty 50 stocks</li>
+  </ul>
+</div>
+  <h2 className="form-title">Try it for yourself!</h2>
+  {!result && (
+    <form className="analysis-form" onSubmit={handleSubmit}>
+      <div className="form-group">
+        <label htmlFor="stock">Nifty 50 Stock</label>
+        <select
+          id="stock"
+          name="stock"
+          value={form.stock}
+          onChange={handleChange}
+          required
+        >
+          <option value="">-- Select a Stock --</option>
+          {NIFTY_50_STOCKS.map((s) => (
+            <option key={s.symbol} value={s.symbol}>
+              {s.name} ({s.symbol})
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="form-group">
+        <label htmlFor="start_date">Start Date</label>
+        <input
+          type="date"
+          id="start_date"
+          name="start_date"
+          value={form.start_date}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="end_date">End Date</label>
+        <input
+          type="date"
+          id="end_date"
+          name="end_date"
+          value={form.end_date}
+          onChange={handleChange}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="short_window">Short Window (days)</label>
+        <input
+          type="number"
+          id="short_window"
+          name="short_window"
+          value={form.short_window}
+          min="1"
+          max="200"
+          onChange={handleChange}
+          required
+          placeholder="Short Window"
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="long_window">Long Window (days)</label>
+        <input
+          type="number"
+          id="long_window"
+          name="long_window"
+          value={form.long_window}
+          min="1"
+          max="500"
+          onChange={handleChange}
+          required
+          placeholder="Long Window"
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="initial_investment">Initial Investment (₹)</label>
+        <input
+          type="number"
+          id="initial_investment"
+          name="initial_investment"
+          value={form.initial_investment}
+          min="0"
+          step="100"
+          onChange={handleChange}
+          placeholder="Optional"
+        />
+      </div>
+      <button type="submit" className="tool-button" disabled={loading}>
+        {loading ? "Analyzing..." : "Analyze Moving Average"}
+      </button>
+    </form>
+  )}
 
       {result && (
         <div className="results">

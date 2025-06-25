@@ -6,8 +6,14 @@
   justify-content: flex-start;
   background: linear-gradient(120deg, #f5f7fa 60%, #e3f2fd 100%);
   padding-top: 40px;
-  color: #263238; /* Modern, almost-black for main text */
+  color: #263238;
+  background: 
+    linear-gradient(rgba(245,247,250,0.92), rgba(227,242,253,0.92)),
+    url('/bg.jpg') center center/cover no-repeat;
+  padding-top: 40px;
+  color: #263238;
 }
+
 
 .form-title {
   margin-bottom: 24px;
@@ -32,17 +38,31 @@
   }
 }
 
+.intro-text {
+  max-width: 600px;
+  margin-bottom: 30px;
+  font-size: 1.13rem;
+  color: #37474f;
+  line-height: 1.7;
+  text-align: center;
+}
+
 .analysis-form {
   background: #fff;
-  padding: 36px 30px;
-  border-radius: 18px;
-  box-shadow: 0 4px 24px rgba(25,118,210,0.13);
+  padding: 2.2rem 2rem;
+  border-radius: 1.3rem;
+  box-shadow: 0 4px 18px rgba(25,118,210,0.10);
+  border: 1.5px solid #e3eaf5;
   display: flex;
   flex-direction: column;
   gap: 22px;
   width: 100%;
   max-width: 440px;
-  transition: box-shadow 0.18s, transform 0.18s;
+  transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
+}
+.analysis-form:focus-within {
+  box-shadow: 0 6px 28px rgba(25,118,210,0.14);
+  border-color: #90caf9;
 }
 .analysis-form:hover {
   box-shadow: 0 8px 32px rgba(25,118,210,0.18);
@@ -61,20 +81,18 @@
   margin-bottom: 2px;
 }
 
-/* Improved input and select styling */
 .analysis-form select,
 .analysis-form input {
-  padding: 12px 14px;
+  padding: 1rem 1.2rem;
   border: 1.5px solid #cfd8dc;
-  border-radius: 7px;
-  font-size: 1rem;
+  border-radius: 0.7rem;
+  font-size: 1.06rem;
   transition: border 0.2s, background 0.2s, color 0.2s;
   background: #f9fafb;
-  color: #223354; /* Deep blue-gray for modern look */
+  color: #223354;
   box-sizing: border-box;
 }
 
-/* Placeholder text color */
 .analysis-form input::placeholder,
 .analysis-form select::placeholder {
   color: #90a4ae;
@@ -86,41 +104,46 @@
   border: 1.7px solid #1976d2;
   outline: none;
   background: #e3f2fd;
-  color: #102040; /* Slightly darker on focus */
+  color: #102040;
+  box-shadow: 0 0 0 2px #bbdefb;
 }
 
 .tool-button {
   background: linear-gradient(90deg, #1976d2 60%, #64b5f6 100%);
   color: #fff;
   border: none;
-  border-radius: 7px;
-  padding: 14px 16px;
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: 0.8rem;
+  padding: 1.1rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
-  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.12);
-  margin-top: 8px;
-  align-self: center;
+  box-shadow: 0 2px 10px rgba(25, 118, 210, 0.13);
+  width: 100%;
+  margin-top: 10px;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.13s;
+  outline: none;
 }
 .tool-button:disabled {
   background: #b0bec5;
   cursor: not-allowed;
 }
+.tool-button:focus {
+  box-shadow: 0 0 0 3px #bbdefb;
+}
 .tool-button:hover:not(:disabled) {
   background: linear-gradient(90deg, #1565c0 60%, #42a5f5 100%);
-  transform: scale(1.04);
-  box-shadow: 0 4px 16px rgba(25,118,210,0.17);
+  transform: scale(1.03);
 }
 
 .results {
   background: #e3f2fd;
-  border-radius: 14px;
-  padding: 28px 20px;
+  border-radius: 1.1rem;
+  padding: 2rem 1.3rem;
   box-shadow: 0 2px 12px rgba(33, 150, 243, 0.12);
+  border: 1.5px solid #e3eaf5;
   width: 100%;
-  max-width: 440px;
-  margin-top: 28px;
+  max-width: 700px;
+  margin-top: 2rem;
   transition: box-shadow 0.18s, transform 0.18s;
   color: #223354;
 }
@@ -137,36 +160,66 @@
 
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
 
 .metric-card {
-  background: #f8f9fa;
-  padding: 1.5rem;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 1px 6px rgba(25,118,210,0.06);
+  background: #f7fbff;
+  border: 1px solid #e3eaf5;
+  border-radius: 1rem;
+  padding: 1.3rem 1rem;
+  box-shadow: 0 1px 8px rgba(25,118,210,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .metric-label {
   display: block;
-  color: #607d8b;
+  color: #42a5f5;
+  font-weight: 600;
   margin-bottom: 0.5rem;
   font-size: 1.05rem;
 }
 
 .metric-value {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #212529;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1565c0;
 }
 
 .metric-subtext {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #28a745;
   margin-left: 0.5rem;
+}
+
+.detailed-analysis {
+  margin: 2rem 0;
+  background: #f9f9f9;
+  padding: 1.3rem 1.2rem;
+  border-radius: 1rem;
+  box-shadow: 0 1px 8px rgba(25,118,210,0.06);
+  font-size: 1.08rem;
+  color: #37474f;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.detailed-analysis h4 {
+  color: #1565c0;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+.detailed-analysis ul {
+  margin: 1rem 0 1.2rem 1.2rem;
+  padding: 0;
+}
+.detailed-analysis li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
 }
 
 .signals-section {
@@ -183,8 +236,9 @@
   min-width: 280px;
   background: #fff;
   padding: 1.5rem;
-  border-radius: 10px;
+  border-radius: 1rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.09);
+  border: 1px solid #e3eaf5;
   transition: box-shadow 0.18s, transform 0.18s;
 }
 .signals-column:hover {
@@ -202,8 +256,17 @@
 .signal-item {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 0;
+  align-items: center;
+  padding: 0.5rem 0.7rem;
   border-bottom: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  margin-bottom: 0.4rem;
+  font-size: 1rem;
+  background: #f8f9fa;
+  border: 1px solid #e3eaf5;
+}
+.signal-item:last-child {
+  margin-bottom: 0;
 }
 
 .signal-date {
@@ -218,7 +281,7 @@
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
 }
 
 .strategy-chart {
@@ -230,15 +293,6 @@
   display: block;
 }
 
-.intro-text {
-  max-width: 600px;
-  margin-bottom: 30px;
-  font-size: 1.08rem;
-  color: #37474f;
-  line-height: 1.6;
-  text-align: center;
-}
-
 .back-btn-wrapper {
   display: flex;
   justify-content: center;
@@ -246,13 +300,12 @@
   margin-bottom: 16px;
 }
 
-@media (max-width: 600px) {
-  .analysis-form, .results {
+@media (max-width: 800px) {
+  .results, .detailed-analysis {
     max-width: 98vw;
-    padding: 16px 6px;
   }
-  .form-title {
-    font-size: 1.3rem;
+  .metrics-grid {
+    grid-template-columns: 1fr;
   }
   .signals-section {
     gap: 1rem;
@@ -261,8 +314,101 @@
   .signals-column {
     min-width: 0;
     padding: 1rem;
+    border-radius: 0.7rem;
   }
-  .metrics-grid {
-    grid-template-columns: 1fr;
+}
+.intro-section {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+   padding: 3rem 2rem 2rem;
+  border-radius: 1.2rem;
+  max-width: 720px;
+  margin: 2rem auto;
+  color: #263238;
+  box-shadow: 0 8px 24px rgba(25, 118, 210, 0.12);
+  overflow: hidden;
+align-items: center;
+}
+
+.intro-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(245, 247, 250, 0.85); /* light overlay for readability */
+  border-radius: 1.2rem;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.intro-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 1rem;
+}
+
+.intro-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.intro-header h2 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  margin: 0;
+  color: #1565c0;
+}
+
+.intro-text {
+  position: relative;
+  z-index: 1;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 100%;
+}
+
+.intro-benefits {
+  position: relative;
+  z-index: 1;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  font-weight: 600;
+  color: #1976d2;
+}
+
+.intro-benefits li {
+  background: #e3f2fd;
+  padding: 0.5rem 1rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 1px 6px rgba(25, 118, 210, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  .intro-section {
+    padding: 2rem 1rem 1.5rem;
+  }
+  .intro-header h2 {
+    font-size: 1.6rem;
+  }
+  .intro-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .intro-benefits {
+    gap: 0.8rem 1rem;
+    font-size: 0.95rem;
   }
 }
