@@ -13,6 +13,7 @@ export default function Navbar() {
           <Link to="/">Home</Link>
           <Link to="/rsi">RSI</Link>
           <Link to="/moving-average">Moving Average</Link>
+          <Link to="/stock-game">Guess the stock!</Link>
         </nav>
       </div>
     </header>

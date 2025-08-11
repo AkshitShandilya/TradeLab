@@ -3,6 +3,7 @@ import Navbar from "./components/navbar";
 import LandingPage from "./pages/landingpage";
 import RsiPage from "./pages/rsipage";
 import MovingAveragePage from "./pages/movingaveragepage";
+import StockGuessGame from "./pages/StockGame";  // your game component
 import "./App.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/rsi" element={<RsiPage />} />
               <Route path="/moving-average" element={<MovingAveragePage />} />
+              <Route path="/stock-game" element={<StockGuessGame />} />  {/* New route */}
             </Routes>
           </main>
         </div>
